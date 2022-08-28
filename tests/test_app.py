@@ -29,18 +29,6 @@ def client_fixture(session: Session):
     app.dependency_overrides.clear()
 
 
-def test_create_pokemon(client: TestClient):
-    response = client.post(
-        "/pokemon/", json={"name": "Pikachu", "type": "Electric"}
-    )
-    data = response.json()
-
-    assert response.status_code == 200
-    assert data["name"] == "Pikachu"
-    assert data["type"] == "Electric"
-    assert data["id"] is not None
-
-
 def test_read_pokemon(session: Session, client: TestClient):
     pokemon_1 = Pokemon(name="Pikachu", type="Electric")
     pokemon_2 = Pokemon(name="Bulbasaur", type="Grass Poison")

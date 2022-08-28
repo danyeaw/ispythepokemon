@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Depends
-from sqlmodel import Session, select
+from fastapi import FastAPI
+from sqlmodel import Session, or_, select
 
 from ispythepokemon.database import create_db_and_tables, engine
 from ispythepokemon.models import Pokemon
@@ -20,32 +20,19 @@ def on_startup():
 @app.get("/pokemon/")
 def read_pokemon():
     with Session(engine) as session:
-        pokemon = session.exec(select(Pokemon)).all()
-        print(pokemon)
-        return pokemon
+        return session.exec(select(Pokemon)).all()
 
 
-@app.post("/pokemon/")
-def create_hero(hero: Pokemon):
+@app.get("/type/{pokemon_types}")
+def read_pokemon_by_type(pokemon_types: str):
     with Session(engine) as session:
-        session.add(hero)
-        session.commit()
-        session.refresh(hero)
-        return hero
+        if " " in pokemon_types:
+            types_list = pokemon_types.split()
+            reversed_types = f"{types_list[1]} {types_list[0]}"
 
+        statement = select(Pokemon).where(
+            or_(Pokemon.type == pokemon_types, Pokemon.type == reversed_types)
+        )
 
-def select_pokemon():
-    with Session(engine) as session:
-        statement = select(Pokemon).where(Pokemon.type == "Fire")
         results = session.exec(statement)
-        pokemon = results.one()
-        print(f"Pokemon: {pokemon}")
-
-
-def main():
-    create_db_and_tables()
-    select_pokemon()
-
-
-if __name__ == "__main__":
-    main()
+        return results.all()

@@ -1,4 +1,4 @@
-from sqlmodel import create_engine, Field, SQLModel
+from sqlmodel import Field, SQLModel, create_engine
 
 
 class Pokemon(SQLModel, table=True):
