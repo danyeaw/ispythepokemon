@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>I Spy The Pokemon</title>
+</head>
+<body>
+<H1>I Spy The Pokemon</H1>
+<form class="d-flex" action="/type/">
+    <input class="form-control me-2" name="pokemon_types" type="search" placeholder="Grass Bug" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+<ul>
+    {% for poke in pokemon %}
+    <li>{{poke.name}}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
