@@ -6,16 +6,38 @@
 </head>
 <body>
 <H1>I Spy The Pokemon</H1>
-<form class="d-flex" action="/type/">
-    <input class="form-control me-2" name="pokemon_types" type="search" placeholder="Grass Bug" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Search</button>
-</form>
 
+<div>
+    <form action="/type/">
+        <label >1st Type</label>
+        <select name="type1">
+            {% for type in types %}
+                {% if type == type1 %}
+                    <option value={{type}} selected>{{type}}</option>
+                {% endif %}
+                <option>{{type}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label >2nd Type</label>
+        <select name="type2">
+            <option value="">None</option>
+            {% for type in types %}
+                {% if type == type2 %}
+                    <option value={{type}} selected>{{type}}</option>
+                {% endif %}
+                <option>{{type}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit">Search</button>
+    </form>
+</div>
 <ul>
     {% for poke in pokemon %}
     <li>{{poke.name}}</li>
     {% endfor %}
 </ul>
-
+<script src="https://unpkg.com/htmx.org@1.8.0" integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous"></script>
 </body>
 </html>
