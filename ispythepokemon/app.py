@@ -1,12 +1,14 @@
 from fastapi import FastAPI, Request, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from sqlmodel import Session, or_, select
 
 from ispythepokemon.database import create_db_and_tables, engine
 from ispythepokemon.models import Pokemon
 
 app = FastAPI()
+app.mount("/static", StaticFiles(directory="ispythepokemon/static"), name="static")
 templates = Jinja2Templates(directory="ispythepokemon/templates")
 
 
@@ -22,7 +24,7 @@ def on_startup():
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    pokemon = all_pokemon()
+    pokemon = []
     types = all_types()
     return templates.TemplateResponse(
         "index.html", {"request": request, "pokemon": pokemon, "types": types}

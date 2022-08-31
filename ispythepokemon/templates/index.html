@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <script src="https://use.fontawesome.com/f78c832dee.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-    <title>I Spy The Pokemon</title>
+    <title>I Spy The Pokémon!</title>
 </head>
 <body>
-<H1>I Spy The Pokemon</H1>
-
-<div>
-    <form action="/type/">
-        <label >1st Type</label>
+<div class="centeredPrompt">
+    <div class="centeredPrompt__item centeredPromptIcon">
+        <div class="icon fa fa-user-secret"></div>
+    </div>
+    <div class="centeredPrompt__item centeredPromptLabel">I Spy The Pokémon!</div>
+    <div class="centeredPrompt__item centeredPromptDetails">Select a type or two.</div>
+    <form class="centeredPrompt__item" action="/type/">
+        <label>1st Type</label>
         <select name="type1">
             {% for type in types %}
-                {% if type == type1 %}
-                    <option value={{type}} selected>{{type}}</option>
-                {% endif %}
-                <option>{{type}}</option>
+            {% if type == type1 %}
+            <option value={{type}} selected>{{type}}</option>
+            {% endif %}
+            <option>{{type}}</option>
             {% endfor %}
-        </select>
-        <br>
-        <label >2nd Type</label>
+        </select><br><br>
+        <label>2nd Type</label>
         <select name="type2">
             <option value="">None</option>
             {% for type in types %}
-                {% if type == type2 %}
-                    <option value={{type}} selected>{{type}}</option>
-                {% endif %}
-                <option>{{type}}</option>
+            {% if type == type2 %}
+            <option value={{type}} selected>{{type}}</option>
+            {% endif %}
+            <option>{{type}}</option>
             {% endfor %}
-        </select>
-        <br>
+        </select><br><br>
         <button type="submit">Search</button>
+    </form>
+    <form class="centeredPrompt__item" action="/">
+        <button type="submit">Reset</button>
     </form>
 </div>
 <ul>
@@ -38,6 +44,5 @@
     <li>{{poke.name}}</li>
     {% endfor %}
 </ul>
-<script src="https://unpkg.com/htmx.org@1.8.0" integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous"></script>
 </body>
 </html>
