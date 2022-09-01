@@ -12,4 +12,5 @@ COPY --from=requirements-stage /tmp/requirements.txt /code/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 COPY ./ispythepokemon /code/ispythepokemon
 COPY ./database.db /code/database.db
-CMD ["uvicorn", "ispythepokemon.app:app", "--host", "0.0.0.0", "--port", "80"]
+# CMD ["uvicorn", "ispythepokemon.app:app", "--host", "0.0.0.0", "--port", $PORT]
+CMD exec gunicorn --bind :$PORT --workers 1 --worker-class uvicorn.workers.UvicornWorker  --threads 8 ispythemokemon.app:app
