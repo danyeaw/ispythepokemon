@@ -72,11 +72,36 @@ form {
 }
 
 .centered {
-  margin:50px auto;
-  text-align:center;
+  margin: 50px auto;
+  text-align: center;
 }
 
 .button::-moz-focus-inner{
   border: 0;
   padding: 0;
+}
+.gallery {
+  /**
+   * Lay out the children of this container with
+   * flexbox, which is horizontal by default.
+   */
+  display: flex;
+  justify-content: center;
+
+  /**
+   * Allow the children to wrap to the next "row",
+   * instead of trying to squeeze them all into
+   * a single row.
+   */
+  flex-wrap: wrap;
+
+  width: 1000px;
+}
+.photo {
+  width: 300px;
+  height: 200px;
+  line-height: 200px;
+  border: 1px solid #D7DBDD;
+  align-content: center;
+  overflow-wrap: normal;
 }

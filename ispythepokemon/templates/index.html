@@ -19,8 +19,9 @@
             {% for type in types %}
             {% if type == type1 %}
             <option value={{type}} selected>{{type}}</option>
-            {% endif %}
+            {% else %}
             <option>{{type}}</option>
+            {% endif %}
             {% endfor %}
         </select><br><br>
         <label>2nd Type</label>
@@ -29,8 +30,9 @@
             {% for type in types %}
             {% if type == type2 %}
             <option value={{type}} selected>{{type}}</option>
-            {% endif %}
+            {% else %}
             <option>{{type}}</option>
+            {% endif %}
             {% endfor %}
         </select><br><br>
         <button type="submit">Search</button>
@@ -39,10 +41,11 @@
         <button type="submit">Reset</button>
     </form>
 </div>
-<ul>
+<div class="centeredPrompt__item centeredPromptDetails">{{type1}} {{type2}}</div>
+<div class="gallery centered">
     {% for poke in pokemon %}
-    <li>{{poke.name}}</li>
+    <div class="photo">{{poke.name}}</div>
     {% endfor %}
-</ul>
+</div>
 </body>
 </html>
