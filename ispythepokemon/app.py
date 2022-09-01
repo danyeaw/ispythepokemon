@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, or_, select
 
 from ispythepokemon.database import create_db_and_tables, engine
@@ -47,7 +47,10 @@ def read_pokemon_by_type(request: Request, type1: str, type2: str | None = None)
     with Session(engine) as session:
         if type2:
             statement = select(Pokemon).where(
-                or_(Pokemon.type == f"{type1} {type2}", Pokemon.type == f"{type2} {type1}")
+                or_(
+                    Pokemon.type == f"{type1} {type2}",
+                    Pokemon.type == f"{type2} {type1}",
+                )
             )
         else:
             statement = select(Pokemon).where(Pokemon.type == type1)
@@ -55,5 +58,12 @@ def read_pokemon_by_type(request: Request, type1: str, type2: str | None = None)
         results = session.exec(statement)
         pokemon = results.all()
     return templates.TemplateResponse(
-        "index.html", {"request": request, "pokemon": pokemon, "types": types, "type1": type1, "type2": type2}
+        "index.html",
+        {
+            "request": request,
+            "pokemon": pokemon,
+            "types": types,
+            "type1": type1,
+            "type2": type2,
+        },
     )
