@@ -13,4 +13,3 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 COPY ./ispythepokemon /code/ispythepokemon
 COPY ./database.db /code/database.db
 CMD exec gunicorn --bind :$PORT --workers 1 --worker-class uvicorn.workers.UvicornWorker  --threads 8 ispythepokemon.app:app
-

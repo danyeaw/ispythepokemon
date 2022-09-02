@@ -8,7 +8,6 @@ from ispythepokemon.database import create_db_and_tables, engine
 from ispythepokemon.models import Pokemon
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="ispythepokemon/static"), name="static")
 templates = Jinja2Templates(directory="ispythepokemon/templates")
 
 
@@ -42,7 +41,7 @@ def home(request: Request):
     )
 
 
-@app.get("/type/")
+@app.get("/type")
 def read_pokemon_by_type(request: Request, type1: str, type2: str | None = None):
     with Session(engine) as session:
         if type2:
